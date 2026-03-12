@@ -1,0 +1,47 @@
+﻿export const portfolioData = {
+  name: 'Vaghasiya Akshit',
+  title: 'Full Stack Developer',
+  location: 'India',
+  bio: "I build polished web products with a strong eye for user experience, motion, and reliability. I enjoy blending frontend craft, backend logic, and AI tooling into products that feel memorable instead of generic.",
+  skills: [
+    'React',
+    'Three.js',
+    'JavaScript',
+    'Node.js',
+    'Python',
+    'UI Design',
+    'AI Tools',
+    'E-commerce',
+  ],
+  projects: [
+    {
+      name: 'AI Product Scraper',
+      description: 'A product intelligence workflow that gathers listings, compares marketplaces, and prepares structured output for analysis.',
+      tech: ['Python', 'FastAPI', 'Automation'],
+      link: '',
+      github: 'https://github.com/VAGHASIYA6733',
+    },
+    {
+      name: 'Interactive Commerce Experiences',
+      description: 'Frontend work focused on conversion-friendly interfaces, modern motion, and smoother user journeys for online stores.',
+      tech: ['React', 'JavaScript', 'UI Systems'],
+      link: '',
+      github: 'https://github.com/VAGHASIYA6733',
+    },
+    {
+      name: 'Creative Portfolio Lab',
+      description: 'A playground for cinematic web interfaces, 3D storytelling, and immersive personal branding experiments.',
+      tech: ['Vite', 'React Three Fiber', 'GSAP'],
+      link: '',
+      github: 'https://github.com/VAGHASIYA6733',
+    },
+  ],
+  social: {
+    github: 'https://github.com/VAGHASIYA6733',
+    linkedin: 'https://linkedin.com/in/yourname',
+    email: 'vaghasiyaakshit.673@gmail.com',
+    resume: '',
+  },
+  vesselName: 'Portfolio One',
+  accentColor: '#58f3ff',
+}

@@ -1,0 +1,478 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+:root {
+  color-scheme: dark;
+  --bg: #02040b;
+  --panel: rgba(7, 14, 26, 0.86);
+  --panel-border: rgba(88, 243, 255, 0.24);
+  --text: #e7f9ff;
+  --muted: #7ea5bc;
+  --accent: #58f3ff;
+  --orange: #ff7b4d;
+  --font-display: 'Orbitron', sans-serif;
+  --font-body: 'Rajdhani', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  background: radial-gradient(circle at top, #0a1530 0%, #02040b 44%, #010207 100%);
+  color: var(--text);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+body {
+  letter-spacing: 0.02em;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+.app-shell {
+  position: relative;
+  width: 100%;
+}
+
+.canvas-wrapper {
+  position: fixed;
+  inset: 0;
+}
+
+.mission-overlay,
+.progress-dots,
+.enter-prompt,
+.corridor-hud,
+.room-label,
+.section-hint,
+.flash-overlay {
+  position: fixed;
+  z-index: 20;
+}
+
+.mission-overlay {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  pointer-events: none;
+}
+
+.mission-overlay.visible {
+  opacity: 1;
+  transform: translate(-50%, calc(-50% - 10px));
+}
+
+.mission-label,
+.mission-vessel,
+.panel-label,
+.room-label-tag,
+.enter-prompt-caption,
+.screen-label,
+.floating-label {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+}
+
+.mission-label {
+  color: var(--muted);
+  font-size: 0.72rem;
+  margin-bottom: 0.9rem;
+}
+
+.mission-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 7vw, 5.6rem);
+  line-height: 0.95;
+  text-shadow: 0 0 22px rgba(88, 243, 255, 0.7);
+}
+
+.mission-title {
+  margin-top: 1rem;
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: clamp(0.9rem, 2vw, 1.25rem);
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+
+.mission-vessel {
+  margin-top: 1.2rem;
+  color: var(--muted);
+  font-size: 0.62rem;
+}
+
+.progress-dots {
+  left: 50%;
+  bottom: 2rem;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.6rem;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.progress-dots.visible {
+  opacity: 1;
+}
+
+.progress-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(126, 165, 188, 0.45);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.progress-dot.active {
+  background: var(--accent);
+  box-shadow: 0 0 16px rgba(88, 243, 255, 0.9);
+  transform: scale(1.25);
+}
+
+.enter-prompt {
+  left: 50%;
+  bottom: 5.2rem;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+
+.enter-prompt.right {
+  left: auto;
+  right: 1.4rem;
+  top: 50%;
+  bottom: auto;
+  transform: translateY(-50%);
+  align-items: flex-end;
+}
+
+.enter-prompt.right .enter-prompt-caption,
+.enter-prompt.bottom-right .enter-prompt-caption {
+  text-align: right;
+}
+
+.enter-prompt.bottom-right {
+  left: auto;
+  right: 1.4rem;
+  bottom: 1.4rem;
+  top: auto;
+  transform: none;
+  align-items: flex-end;
+}
+
+.enter-prompt.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.enter-prompt-btn,
+.hud-btn,
+.link-btn,
+.contact-btn,
+.panel-close {
+  border: 1px solid rgba(88, 243, 255, 0.35);
+  background: linear-gradient(180deg, rgba(4, 15, 28, 0.88), rgba(4, 11, 22, 0.6));
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease, background 0.25s ease;
+}
+
+.enter-prompt-btn,
+.hud-btn,
+.link-btn,
+.contact-btn {
+  padding: 0.8rem 1.3rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.enter-prompt-btn:hover,
+.hud-btn:hover,
+.link-btn:hover,
+.contact-btn:hover,
+.panel-close:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 18px rgba(88, 243, 255, 0.24);
+  transform: translateY(-1px);
+}
+
+.enter-prompt-caption {
+  color: var(--muted);
+  font-size: 0.58rem;
+}
+
+.room-label {
+  top: 1.35rem;
+  left: 1.35rem;
+  padding: 0.85rem 1rem;
+  background: rgba(5, 10, 20, 0.66);
+  border: 1px solid rgba(88, 243, 255, 0.18);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.room-label.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.room-label-tag {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: var(--muted);
+  font-size: 0.54rem;
+}
+
+.room-label-name {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+}
+
+.corridor-hud {
+  left: 50%;
+  bottom: 2rem;
+  transform: translateX(-50%);
+}
+
+.section-hint {
+  right: 1.4rem;
+  top: 1.4rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid rgba(88, 243, 255, 0.18);
+  background: rgba(5, 12, 24, 0.72);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  font-family: var(--font-display);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.section-hint.visible {
+  opacity: 1;
+}
+
+.floating-label,
+.screen-label {
+  padding: 0.42rem 0.7rem;
+  background: rgba(5, 12, 24, 0.82);
+  border: 1px solid rgba(88, 243, 255, 0.28);
+  color: var(--accent);
+  font-size: 0.52rem;
+  white-space: nowrap;
+}
+
+.info-panel {
+  position: fixed;
+  top: 0;
+  width: min(460px, 92vw);
+  height: 100vh;
+  padding: 2rem 1.6rem;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  backdrop-filter: blur(14px);
+  z-index: 30;
+  overflow-y: auto;
+}
+
+.info-panel.left {
+  left: 0;
+  transform: translateX(-110%);
+}
+
+.info-panel.right {
+  right: 0;
+  transform: translateX(110%);
+}
+
+.info-panel.center {
+  left: 50%;
+  top: 50%;
+  height: auto;
+  max-height: 80vh;
+  transform: translate(-50%, -50%) scale(0.92);
+  border-radius: 18px;
+  opacity: 0;
+}
+
+.info-panel.open.left,
+.info-panel.open.right {
+  transform: translateX(0);
+}
+
+.info-panel.open.center {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1.6rem;
+}
+
+.panel-label {
+  color: var(--muted);
+  font-size: 0.52rem;
+  margin-bottom: 0.45rem;
+}
+
+.panel-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  letter-spacing: 0.08em;
+}
+
+.panel-close {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  font-family: var(--font-display);
+}
+
+.panel-stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.about-avatar {
+  width: fit-content;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid rgba(88, 243, 255, 0.24);
+  color: var(--accent);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.about-name {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+}
+
+.about-role,
+.about-bio,
+.contact-subtitle,
+.project-desc {
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.5;
+}
+
+.skills-label,
+.project-index,
+.contact-header {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  color: var(--accent);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.skills-grid,
+.project-tech,
+.project-links,
+.contact-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.skill-badge,
+.tech-tag {
+  padding: 0.42rem 0.7rem;
+  border: 1px solid rgba(88, 243, 255, 0.18);
+  background: rgba(88, 243, 255, 0.08);
+  color: var(--text);
+}
+
+.project-card {
+  padding: 1rem;
+  border: 1px solid rgba(88, 243, 255, 0.16);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.project-name {
+  margin: 0.35rem 0 0;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+}
+
+.contact-btn {
+  display: inline-flex;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.flash-overlay {
+  inset: 0;
+  background: linear-gradient(180deg, rgba(209, 243, 255, 0), rgba(209, 243, 255, 0.95), rgba(209, 243, 255, 0));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.flash-overlay.active {
+  opacity: 1;
+}
+
+.end-screen {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 40;
+  transition: opacity 0.5s ease;
+}
+
+.end-screen.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (max-width: 900px) {
+  .mission-overlay {
+    width: min(92vw, 560px);
+  }
+
+  .mission-name {
+    font-size: clamp(2rem, 12vw, 4rem);
+  }
+
+  .room-label,
+  .section-hint {
+    font-size: 0.9rem;
+  }
+
+  .info-panel {
+    width: 100vw;
+    border-left: none;
+    border-right: none;
+  }
+}
